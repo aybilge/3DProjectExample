@@ -13,16 +13,11 @@
         
         <a-box src="kabe.png" position="0 0.5 0" scale="1 1 1" material="roughness: 1;"></a-box>
  
-        <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 15000; easing: linear">
-          
-          <a-entity gltf-model="url(haci.glb)" position="1 0 0" scale="0.5 0.5 0.5" rotation="0 90 0"></a-entity>
-          
-          <a-entity gltf-model="url(haci.glb)" position="-1 0 0" scale="0.5 0.5 0.5" rotation="0 -90 0"></a-entity>
-          
-          <a-entity gltf-model="url(haci.glb)" position="0 0 1" scale="0.5 0.5 0.5" rotation="0 0 0"></a-entity>
-          
-          <a-entity gltf-model="url(haci.glb)" position="0 0 -1" scale="0.5 0.5 0.5" rotation="0 180 0"></a-entity>
-          
+        <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear">
+          <a-sphere position="1.5 0.2 0" radius="0.1" color="white"></a-sphere>
+          <a-sphere position="-1.5 0.2 0" radius="0.1" color="white"></a-sphere>
+          <a-sphere position="0 0.2 1.5" radius="0.1" color="white"></a-sphere>
+          <a-sphere position="0 0.2 -1.5" radius="0.1" color="white"></a-sphere>
         </a-entity>
 
       </a-marker>
