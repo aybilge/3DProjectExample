@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR Kabe Tavaf - MEB Fix</title>
+    <title>AR Kabe Projesi</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   </head>
@@ -14,13 +14,16 @@
         <a-box src="kabe.jpg" position="0 0.5 0" scale="1 1 1" material="roughness: 1;"></a-box>
 
         <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 15000; easing: linear">
-            <a-sphere position="1.5 0.2 0" radius="0.1" color="white"></a-sphere>
+            
+             <a-sphere position="1.5 0.2 0" radius="0.1" color="white"></a-sphere>
             <a-sphere position="-1.5 0.2 0" radius="0.1" color="white"></a-sphere>
             <a-sphere position="0 0.2 1.5" radius="0.1" color="white"></a-sphere>
             <a-sphere position="0 0.2 -1.5" radius="0.1" color="white"></a-sphere>
+            
         </a-entity>
 
       </a-marker>
+      
       <a-entity camera></a-entity>
     </a-scene>
   </body>
