@@ -1,46 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
     <title>Canlı Sonuçlar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: sans-serif; padding: 40px; text-align: center; }
-        h1 { margin-bottom: 40px; }
-        .bar-container { display: flex; align-items: flex-end; justify-content: center; height: 400px; gap: 50px; }
-        .bar-wrapper { width: 100px; text-align: center; }
-        .bar { width: 100%; background-color: #ddd; transition: height 0.5s; border-radius: 10px 10px 0 0; }
-        .label { margin-top: 10px; font-weight: bold; font-size: 20px; }
-        .count { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-        
-        #barA { background-color: #e74c3c; }
-        #barB { background-color: #3498db; }
-        #barC { background-color: #f1c40f; }
-        #barD { background-color: #2ecc71; }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background-color: #f4f6f8; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Ana Kart */
+        .container {
+            background-color: white;
+            width: 90%;
+            max-width: 900px; /* Projektörde geniş görünsün */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* Logo */
+        .logo-img {
+            height: 100px; /* Logo boyutu */
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 50px;
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Grafik Alanı */
+        .chart-container {
+            display: flex;
+            align-items: flex-end; /* Barları aşağı hizalar */
+            justify-content: space-around; /* Aralarına boşluk koyar */
+            height: 400px;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 15px;
+            border: 1px solid #eee;
+        }
+
+        /* Sütun Grubu (Bar + Sayı + Harf) */
+        .bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            width: 15%; /* Sütun genişliği */
+            height: 100%;
+            position: relative;
+        }
+
+        /* Barların Kendisi */
+        .bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 10px 10px 0 0;
+            transition: height 1s ease-in-out; /* Yumuşak yükselme efekti */
+            min-height: 10px; /* Sıfırken bile azıcık görünsün */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        /* Renkler (Anket ekranıyla uyumlu) */
+        .color-a { background: linear-gradient(to top, #c0392b, #e74c3c); }
+        .color-b { background: linear-gradient(to top, #2980b9, #3498db); }
+        .color-c { background: linear-gradient(to top, #f39c12, #f1c40f); }
+        .color-d { background: linear-gradient(to top, #27ae60, #2ecc71); }
+
+        /* Sayılar (Barın üzerindeki) */
+        .count {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            transition: all 0.5s;
+        }
+
+        /* Alt Etiketler (A, B, C, D) */
+        .label {
+            margin-top: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #7f8c8d;
+            background-color: #ecf0f1;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+        }
+
+        /* Toplam Oy Bilgisi */
+        .footer-info {
+            margin-top: 30px;
+            color: #95a5a6;
+            font-size: 18px;
+        }
+
     </style>
 </head>
 <body>
 
-    <h1>Canlı Oylama Sonuçları</h1>
+    <div class="container">
+        <img src="meb_logo.png" alt="MEB Logo" class="logo-img">
+        <br>
+        
+        <h1>Canlı Oylama Sonuçları</h1>
 
-    <div class="bar-container">
-        <div class="bar-wrapper">
-            <div id="countA" class="count">0</div>
-            <div id="barA" class="bar" style="height: 0%;"></div>
-            <div class="label">A</div>
+        <div class="chart-container">
+            
+            <div class="bar-wrapper">
+                <div id="countA" class="count">0</div>
+                <div id="barA" class="bar color-a" style="height: 1%;"></div>
+                <div class="label">A</div>
+            </div>
+
+            <div class="bar-wrapper">
+                <div id="countB" class="count">0</div>
+                <div id="barB" class="bar color-b" style="height: 1%;"></div>
+                <div class="label">B</div>
+            </div>
+
+            <div class="bar-wrapper">
+                <div id="countC" class="count">0</div>
+                <div id="barC" class="bar color-c" style="height: 1%;"></div>
+                <div class="label">C</div>
+            </div>
+
+            <div class="bar-wrapper">
+                <div id="countD" class="count">0</div>
+                <div id="barD" class="bar color-d" style="height: 1%;"></div>
+                <div class="label">D</div>
+            </div>
+
         </div>
-        <div class="bar-wrapper">
-            <div id="countB" class="count">0</div>
-            <div id="barB" class="bar" style="height: 0%;"></div>
-            <div class="label">B</div>
-        </div>
-        <div class="bar-wrapper">
-            <div id="countC" class="count">0</div>
-            <div id="barC" class="bar" style="height: 0%;"></div>
-            <div class="label">C</div>
-        </div>
-        <div class="bar-wrapper">
-            <div id="countD" class="count">0</div>
-            <div id="barD" class="bar" style="height: 0%;"></div>
-            <div class="label">D</div>
+
+        <div class="footer-info">
+            Toplam Oy: <span id="toplamOy" style="font-weight:bold; color:#2c3e50">0</span>
         </div>
     </div>
 
@@ -48,50 +162,62 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-        // --- BURAYI KENDİ KODUNLA DEĞİŞTİR ---
+        // --- BURAYA KENDİ KODUNU TEKRAR YAPIŞTIR ---
         const firebaseConfig = {
-		  apiKey: "AIzaSyAtTNQm4hgQfJFDXfVHVdQIy9K8NYujxOo",
-		  authDomain: "calistayanket.firebaseapp.com",
-		  databaseURL: "https://calistayanket-default-rtdb.europe-west1.firebasedatabase.app",
-		  projectId: "calistayanket",
-		  storageBucket: "calistayanket.firebasestorage.app",
-		  messagingSenderId: "84810169360",
-		  appId: "1:84810169360:web:7a157feaf1fc18047ade95"
-		};
-        // --------------------------------------
+	  apiKey: "AIzaSyAtTNQm4hgQfJFDXfVHVdQIy9K8NYujxOo",
+	  authDomain: "calistayanket.firebaseapp.com",
+	  databaseURL: "https://calistayanket-default-rtdb.europe-west1.firebasedatabase.app",
+	  projectId: "calistayanket",
+	  storageBucket: "calistayanket.firebasestorage.app",
+	  messagingSenderId: "84810169360",
+	  appId: "1:84810169360:web:7a157feaf1fc18047ade95"
+	};
+        // -------------------------------------------
 
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Veritabanını dinle (Her yeni oyda burası çalışır)
+        // Veritabanını anlık dinle
         database.ref('oylar').on('value', (snapshot) => {
             const oylar = snapshot.val();
             let a = 0, b = 0, c = 0, d = 0;
             let toplam = 0;
 
-            // Oyları say
-            for (let id in oylar) {
-                const secim = oylar[id].secim;
-                if (secim === 'A') a++;
-                if (secim === 'B') b++;
-                if (secim === 'C') c++;
-                if (secim === 'D') d++;
-                toplam++;
+            if (oylar) {
+                for (let id in oylar) {
+                    const secim = oylar[id].secim;
+                    if (secim === 'A') a++;
+                    if (secim === 'B') b++;
+                    if (secim === 'C') c++;
+                    if (secim === 'D') d++;
+                    toplam++;
+                }
             }
 
             // Ekranı güncelle
-            guncelle('A', a, toplam);
-            guncelle('B', b, toplam);
-            guncelle('C', c, toplam);
-            guncelle('D', d, toplam);
+            guncelleBar('A', a, toplam);
+            guncelleBar('B', b, toplam);
+            guncelleBar('C', c, toplam);
+            guncelleBar('D', d, toplam);
+
+            document.getElementById('toplamOy').innerText = toplam;
         });
 
-        function guncelle(harf, sayi, toplam) {
-            document.getElementById('count' + harf).innerText = sayi;
-            // Yüzdeye göre bar yüksekliğini ayarla (Max yükseklik %100)
-            let yukseklik = toplam > 0 ? (sayi / toplam) * 100 : 0;
-            // Görsellik olsun diye bar en az %1 görünsün
-            document.getElementById('bar' + harf).style.height = (yukseklik * 3) + "px"; // 300px üzerinden scale ettik
+        function guncelleBar(harf, sayi, toplam) {
+            // Sayıyı güncelle
+            const countDiv = document.getElementById('count' + harf);
+            countDiv.innerText = sayi;
+
+            // Bar yüksekliğini güncelle
+            const barDiv = document.getElementById('bar' + harf);
+            
+            if (toplam > 0) {
+                const yuzde = (sayi / toplam) * 100;
+                // Bar hiç görünmez olmasın diye en az %2 veriyoruz, max %100
+                barDiv.style.height = Math.max(2, yuzde) + "%"; 
+            } else {
+                barDiv.style.height = "2%"; // Başlangıç seviyesi
+            }
         }
     </script>
 </body>
