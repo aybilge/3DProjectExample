@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Çalıştay Oylama</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f0f0f0; }
+        .soru { font-size: 24px; font-weight: bold; margin-bottom: 30px; }
+        .btn { 
+            display: block; width: 100%; padding: 15px; margin: 10px 0; 
+            font-size: 18px; color: white; border: none; border-radius: 8px; cursor: pointer;
+        }
+        .btn-a { background-color: #e74c3c; } /* Kırmızı */
+        .btn-b { background-color: #3498db; } /* Mavi */
+        .btn-c { background-color: #f1c40f; color: black; } /* Sarı */
+        .btn-d { background-color: #2ecc71; } /* Yeşil */
+        #sonucMesaj { display: none; margin-top: 20px; font-size: 20px; color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="oylamaEkrani">
+        <div class="soru">Soru: Gelecek sene hangi teknolojiye odaklanmalıyız?</div>
+        
+        <button class="btn btn-a" onclick="oyVer('A')">A) Yapay Zeka</button>
+        <button class="btn btn-b" onclick="oyVer('B')">B) Sanal Gerçeklik (VR)</button>
+        <button class="btn btn-c" onclick="oyVer('C')">C) Blockchain</button>
+        <button class="btn btn-d" onclick="oyVer('D')">D) Siber Güvenlik</button>
+    </div>
+
+    <div id="sonucMesaj">Oyunuz Alındı! Teşekkürler.</div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // --- BURAYI KENDİ KODUNLA DEĞİŞTİR ---
+        const firebaseConfig = {
+		  apiKey: "AIzaSyAtTNQm4hgQfJFDXfVHVdQIy9K8NYujxOo",
+		  authDomain: "calistayanket.firebaseapp.com",
+		  databaseURL: "https://calistayanket-default-rtdb.europe-west1.firebasedatabase.app",
+		  projectId: "calistayanket",
+		  storageBucket: "calistayanket.firebasestorage.app",
+		  messagingSenderId: "84810169360",
+		  appId: "1:84810169360:web:7a157feaf1fc18047ade95"
+		};
+        // --------------------------------------
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        function oyVer(secenek) {
+            // Veritabanına oyu gönder
+            const yeniOyRef = database.ref('oylar').push();
+            yeniOyRef.set({
+                secim: secenek,
+                zaman: Date.now()
+            }).then(() => {
+                // Başarılı olursa ekranı değiştir
+                document.getElementById('oylamaEkrani').style.display = 'none';
+                document.getElementById('sonucMesaj').style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>

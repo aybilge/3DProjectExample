@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canlı Sonuçlar</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; text-align: center; }
+        h1 { margin-bottom: 40px; }
+        .bar-container { display: flex; align-items: flex-end; justify-content: center; height: 400px; gap: 50px; }
+        .bar-wrapper { width: 100px; text-align: center; }
+        .bar { width: 100%; background-color: #ddd; transition: height 0.5s; border-radius: 10px 10px 0 0; }
+        .label { margin-top: 10px; font-weight: bold; font-size: 20px; }
+        .count { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        
+        #barA { background-color: #e74c3c; }
+        #barB { background-color: #3498db; }
+        #barC { background-color: #f1c40f; }
+        #barD { background-color: #2ecc71; }
+    </style>
+</head>
+<body>
+
+    <h1>Canlı Oylama Sonuçları</h1>
+
+    <div class="bar-container">
+        <div class="bar-wrapper">
+            <div id="countA" class="count">0</div>
+            <div id="barA" class="bar" style="height: 0%;"></div>
+            <div class="label">A</div>
+        </div>
+        <div class="bar-wrapper">
+            <div id="countB" class="count">0</div>
+            <div id="barB" class="bar" style="height: 0%;"></div>
+            <div class="label">B</div>
+        </div>
+        <div class="bar-wrapper">
+            <div id="countC" class="count">0</div>
+            <div id="barC" class="bar" style="height: 0%;"></div>
+            <div class="label">C</div>
+        </div>
+        <div class="bar-wrapper">
+            <div id="countD" class="count">0</div>
+            <div id="barD" class="bar" style="height: 0%;"></div>
+            <div class="label">D</div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // --- BURAYI KENDİ KODUNLA DEĞİŞTİR ---
+        const firebaseConfig = {
+		  apiKey: "AIzaSyAtTNQm4hgQfJFDXfVHVdQIy9K8NYujxOo",
+		  authDomain: "calistayanket.firebaseapp.com",
+		  databaseURL: "https://calistayanket-default-rtdb.europe-west1.firebasedatabase.app",
+		  projectId: "calistayanket",
+		  storageBucket: "calistayanket.firebasestorage.app",
+		  messagingSenderId: "84810169360",
+		  appId: "1:84810169360:web:7a157feaf1fc18047ade95"
+		};
+        // --------------------------------------
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Veritabanını dinle (Her yeni oyda burası çalışır)
+        database.ref('oylar').on('value', (snapshot) => {
+            const oylar = snapshot.val();
+            let a = 0, b = 0, c = 0, d = 0;
+            let toplam = 0;
+
+            // Oyları say
+            for (let id in oylar) {
+                const secim = oylar[id].secim;
+                if (secim === 'A') a++;
+                if (secim === 'B') b++;
+                if (secim === 'C') c++;
+                if (secim === 'D') d++;
+                toplam++;
+            }
+
+            // Ekranı güncelle
+            guncelle('A', a, toplam);
+            guncelle('B', b, toplam);
+            guncelle('C', c, toplam);
+            guncelle('D', d, toplam);
+        });
+
+        function guncelle(harf, sayi, toplam) {
+            document.getElementById('count' + harf).innerText = sayi;
+            // Yüzdeye göre bar yüksekliğini ayarla (Max yükseklik %100)
+            let yukseklik = toplam > 0 ? (sayi / toplam) * 100 : 0;
+            // Görsellik olsun diye bar en az %1 görünsün
+            document.getElementById('bar' + harf).style.height = (yukseklik * 3) + "px"; // 300px üzerinden scale ettik
+        }
+    </script>
+</body>
+</html>
